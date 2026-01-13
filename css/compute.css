@@ -1,0 +1,239 @@
+/* =====================================================
+   0G Compute - Product-Specific Styles
+   ===================================================== */
+
+/* ==================== Inference Flow Visualization ==================== */
+.inference-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+}
+
+.flow-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.flow-node {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.flow-node.request {
+    background: linear-gradient(135deg, var(--color-purple-700), var(--color-purple-500));
+    color: white;
+    animation: node-pulse 2s ease-in-out infinite;
+}
+
+.flow-node.escrow {
+    background: rgba(251, 191, 36, 0.2);
+    border: 2px solid #fbbf24;
+    color: #fbbf24;
+    animation: node-pulse 2s ease-in-out infinite 0.3s;
+}
+
+.flow-node.gpu {
+    background: rgba(59, 130, 246, 0.2);
+    border: 2px solid #3b82f6;
+    color: #3b82f6;
+    animation: gpu-compute 1s ease-in-out infinite;
+}
+
+.flow-node.result {
+    background: linear-gradient(135deg, var(--color-success), #16a34a);
+    color: white;
+    animation: node-pulse 2s ease-in-out infinite 0.9s;
+}
+
+@keyframes node-pulse {
+    0%, 100% { box-shadow: 0 0 0 rgba(146, 0, 225, 0); transform: scale(1); }
+    50% { box-shadow: 0 0 15px rgba(146, 0, 225, 0.4); transform: scale(1.05); }
+}
+
+@keyframes gpu-compute {
+    0%, 100% { box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+    50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6); }
+}
+
+.flow-arrow {
+    color: var(--color-gray-600);
+    font-size: 12px;
+    animation: arrow-flow 1.5s ease-in-out infinite;
+}
+
+@keyframes arrow-flow {
+    0%, 100% { opacity: 0.4; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(3px); }
+}
+
+.flow-label {
+    color: var(--color-gray-500);
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ==================== Verification Paths Visualization ==================== */
+.verification-paths {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    font-family: var(--font-mono);
+    font-size: 10px;
+}
+
+.verify-path {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.path-label {
+    min-width: 45px;
+    color: var(--color-gray-400);
+    font-size: 9px;
+    font-weight: 600;
+}
+
+.path-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.path-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    animation: path-fill 3s ease-out infinite;
+}
+
+.path-bar.tee .path-progress {
+    background: linear-gradient(90deg, var(--color-purple-700), var(--color-purple-500));
+    animation-delay: 0s;
+}
+
+.path-bar.opml .path-progress {
+    background: linear-gradient(90deg, #f59e0b, #fbbf24);
+    animation-delay: 0.5s;
+}
+
+.path-bar.zkml .path-progress {
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    animation-delay: 1s;
+}
+
+@keyframes path-fill {
+    0% { width: 0%; }
+    50% { width: 100%; }
+    50.1% { width: 100%; opacity: 1; }
+    100% { width: 100%; opacity: 0; }
+}
+
+.path-status {
+    width: 20px;
+    height: 20px;
+    background: rgba(34, 197, 94, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-success);
+    font-size: 10px;
+    opacity: 0;
+    animation: status-appear 3s ease-out infinite;
+}
+
+.verify-path:nth-child(1) .path-status { animation-delay: 1.5s; }
+.verify-path:nth-child(2) .path-status { animation-delay: 2s; }
+.verify-path:nth-child(3) .path-status { animation-delay: 2.5s; }
+
+@keyframes status-appear {
+    0%, 40% { opacity: 0; transform: scale(0); }
+    50%, 100% { opacity: 1; transform: scale(1); }
+}
+
+/* ==================== Model Cards (Optional Enhancement) ==================== */
+.models-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+}
+
+.model-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    padding: var(--space-4);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.model-card:hover {
+    border-color: var(--color-purple-500);
+    background: rgba(146, 0, 225, 0.1);
+}
+
+.model-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-3);
+    font-size: 20px;
+    color: white;
+}
+
+.model-name {
+    font-weight: 600;
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-1);
+}
+
+.model-type {
+    font-size: var(--text-xs);
+    color: var(--color-gray-500);
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 640px) {
+    .inference-flow {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .flow-arrow {
+        display: none;
+    }
+
+    .flow-stage {
+        margin: var(--space-2);
+    }
+
+    .models-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
